@@ -42,7 +42,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <div class="btn-nav"><a class="loginbutton btn btn-small navbar-btn" href="/login">Log in</a>
+                <div class="btn-nav"><a class="loginbutton btn btn-small navbar-btn" href="">Log in</a>
                 </div>
             </li>
         </ul>
@@ -51,30 +51,20 @@
 
 <div class="container mt-5">
     <div class="row">
-        {% if user.is_authenticated %}
-            <div class="col-sm-12">
-                <h2>TITLE HEADING</h2>
-                <p>Some text..</p>
-                <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco.</p>
 
-                <h2 class="mt-5">TITLE HEADING</h2>
-                <p>Some text..</p>
-                <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco.</p>
-            </div>
-        {% else %}
-            <p> <a href="/login"> You have to login to access data</a></p>
-        {% endif %}
-
+       <form method="post" class="from-group">
+        {%csrf_token %}
+        {{form}}
+        <p>Don't have an account? Create one <a href="/register">here</a></p>
+        <button type="submit" class="btn btn-success">Login</button>
+        </form>
     </div>
 </div>
 
 <div class="myfooter mt-5 p-2 text-white text-center fixed-bottom">
     <p>Footer</p>
 </div>
+
 
 </body>
 </html>
