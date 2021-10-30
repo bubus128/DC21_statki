@@ -6,3 +6,8 @@ from django.template import loader
 def index(request):
     template = loader.get_template('mainapp/index.html')
     return HttpResponse(template.render({}, request))
+
+
+def formularz(request):
+    template = loader.get_template('formularz_1/formularz.html')
+    return HttpResponse(template.render({}, request))
