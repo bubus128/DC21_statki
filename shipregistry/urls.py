@@ -19,7 +19,8 @@ from petitioner_app.views import vehregister
 
 urlpatterns = [
     path('main/', include('mainapp.urls')),
+    path("petitioner/", include('petitioner_app.urls')),
+    path("clerk/", include('clerk_app.urls')),
     path('admin/', admin.site.urls),
     path('', include("django.contrib.auth.urls")),
-    path("petitioner/", include('petitioner_app.urls')),
 ]

@@ -7,6 +7,11 @@ from django.http import HttpResponse
 from .templates.converter.xmlToPdf import XMLtoPDF
 
 
+def landing(request):
+    template = loader.get_template('petitioner_app/landing_page.html')
+    return HttpResponse(template.render({}, request))
+
+
 def vehregister(request):
     form = VehRegisterForm(request.POST or None)
 
