@@ -9,10 +9,9 @@ def vehregister(request):
     form = VehRegisterForm(request.POST or None)
 
     if request.method == 'POST':
-        xml = "C:\\Users\\nukee\\OneDrive\\Dokumenty\\GitHub\\merge\\register\\templates\\converter\\input.xml"
-        xml = "register\\templates\\converter\\input.xml"
+        xml = "petitioner_app\\templates\\converter\\input.xml"
         # Path to destination PDF file
-        pdf = "register\\templates\\converter\\output.pdf"
+        pdf = "petitioner_app\\templates\\converter\\output.pdf"
         doc = XMLtoPDF(xml, pdf)
         # Convert to PDF format
         doc.createPDF()
