@@ -1,5 +1,28 @@
 {% extends "petitioner_app/petitioner_base.html" %}
 
 {% block content %}
-    <p> TODO </p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Issue no.</th>
+          <th scope="col">Type of issue</th>
+          <th scope="col">State</th>
+          <th scope="col">Save to pdf</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Vehicle registration</td>
+          <td>Done</td>
+          <td><button type="button" class="btn btn-info">Save</button></td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Vehicle registration</td>
+          <td>In progress</td>
+          <td><button type="button" class="btn btn-info">Save</button></td>
+        </tr>
+      </tbody>
+    </table>
 {% endblock %}
