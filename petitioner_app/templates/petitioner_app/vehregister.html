@@ -1,0 +1,10 @@
+{% extends "petitioner_app/petitioner_base.html" %}
+
+{% block content %}
+    {% load crispy_forms_tags %}
+    <form method="post" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type='submit' value='Zarejestruj pojazd'/>
+    </form>
+{% endblock %}

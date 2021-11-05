@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import VehRegisterForm
+from django.template import loader
+from django.http import HttpResponse
 
 # Create your views here.
 from .templates.converter.xmlToPdf import XMLtoPDF
@@ -22,5 +24,19 @@ def vehregister(request):
             form.save()
 
     context = {'form': form}
-    return render(request, "formularze/vehregister.html", context)
+    return render(request, "petitioner_app/vehregister.html", context)
 
+
+def form2(request):
+    template = loader.get_template('petitioner_app/form2.html')
+    return HttpResponse(template.render({}, request))
+
+
+def form3(request):
+    template = loader.get_template('petitioner_app/form3.html')
+    return HttpResponse(template.render({}, request))
+
+
+def myforms(request):
+    template = loader.get_template('petitioner_app/myforms.html')
+    return HttpResponse(template.render({}, request))

@@ -21,5 +21,5 @@ urlpatterns = [
     path('main/', include('mainapp.urls')),
     path('admin/', admin.site.urls),
     path('', include("django.contrib.auth.urls")),
-    path("formularz/", vehregister),
+    path("petitioner/", include('petitioner_app.urls')),
 ]
