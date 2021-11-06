@@ -20,9 +20,18 @@ create table Users(
 
 create table Application(
 	id int primary key not null auto_increment,
-    applicant int not null,
+    petitioner int not null,
     clerk int not null,
     foreign key(applicant) references Users(id),
     foreign key(clerk) references Users(id)
-    # TODO: fields from form
+);
+
+create table Form(
+	id int primary key not null auto_increment,
+);
+
+create table Document(
+	id int primary key not null auto_increment,
+    filename VARCHAR(45) NOT NULL,
+    link VARCHAR(45) NOT NULL
 );
