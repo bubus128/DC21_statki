@@ -1,7 +1,6 @@
 {% extends "mainapp/base.html" %}
 
 {% block content %}
-    {% if user.is_authenticated %}
         <div class="col-sm-12">
             <h2>TITLE HEADING</h2>
             <p>Some text..</p>
@@ -15,7 +14,4 @@
                 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                 ullamco.</p>
         </div>
-    {% else %}
-        <p> <a href="/login"> You have to login to access data</a></p>
-    {% endif %}
 {% endblock %}

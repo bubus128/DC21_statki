@@ -39,7 +39,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <div class="btn-nav"><a class="loginbutton btn btn-small navbar-btn" href="#">Log out</a>
+                <div class="btn-nav"><a class="loginbutton btn btn-small navbar-btn" href="/logout">Log out</a>
                 </div>
             </li>
         </ul>
@@ -48,7 +48,12 @@
 
 <div class="container mt-5">
     <div class="row">
-        {% block content %}{% endblock %}
+        {% if user.is_authenticated %}
+            {% block content %}{% endblock %}
+
+        {% else %}
+            <p> <a href="/login"> You have to login to access data</a></p>
+        {% endif %}
     </div>
 </div>
 
