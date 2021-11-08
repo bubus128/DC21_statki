@@ -19,19 +19,21 @@ create table Users(
     foreign key(user_role) references UserRole(id)
 );
 
+create table Forms(
+	id int primary key not null auto_increment,
+    vehicle_id int not null,
+    form_type VARCHAR(45) NOT NULL,
+    year_of_production datetime
+);
+
 create table Application(
 	id int primary key not null auto_increment,
     petitioner int not null,
     clerk int not null,
     form int not null,
-    foreign key(applicant) references Users(id),
+    foreign key(petitioner) references Users(id),
     foreign key(clerk) references Users(id),
     foreign key(form) references Forms(id)
-);
-
-create table Forms(
-	id int primary key not null auto_increment,
-    year_of_production datetime
 );
 
 create table Document(
