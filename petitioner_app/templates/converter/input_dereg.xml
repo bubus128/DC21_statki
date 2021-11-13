@@ -7,15 +7,9 @@
 		<numer_dowodu>DAE2435</numer_dowodu>
 		<telefon>123-456-789</telefon>
 	</dane_zgloszajacego>
-	<type_of_vehicle>Nowy</type_of_vehicle>
-    <year_of_production>2003</year_of_production>
-	<weight>38</weight>
-	<lenght>516</lenght>
-	<width>230</width>
-	<immersion_depth>120</immersion_depth>
-	<high_water_mark>600</high_water_mark>
+	<vehicle_id>DAE1845Y</vehicle_id>
+    <reason>The car has been scrapped.</reason>
 	<zalaczniki>
-		<vehicle_approval>Yes</vehicle_approval>
 		<proof_of_ownership>No</proof_of_ownership>
 	</zalaczniki>
 </invoice>

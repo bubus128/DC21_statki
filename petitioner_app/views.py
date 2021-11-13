@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import VehRegisterForm
+from .forms import VehRegisterForm, VehDeregisterForm
 from django.template import loader
 from django.http import HttpResponse
 
@@ -21,7 +21,7 @@ def vehregister(request):
         pdf = "petitioner_app\\templates\\converter\\output.pdf"
         doc = XMLtoPDF(xml, pdf)
         # Convert to PDF format
-        doc.createPDF()
+        doc.createPDF_register()
         # Save PDF
         doc.savePDF()
         form = VehRegisterForm(request.POST or None)
@@ -32,9 +32,24 @@ def vehregister(request):
     return render(request, "petitioner_app/vehregister.html", context)
 
 
-def form2(request):
-    template = loader.get_template('petitioner_app/form2.html')
-    return HttpResponse(template.render({}, request))
+def vehderegister(request):
+    form = VehDeregisterForm(request.POST or None)
+
+    if request.method == 'POST':
+        xml = "petitioner_app\\templates\\converter\\input_dereg.xml"
+        # Path to destination PDF file
+        pdf = "petitioner_app\\templates\\converter\\output_dereg.pdf"
+        doc = XMLtoPDF(xml, pdf)
+        # Convert to PDF format
+        doc.createPDF_deregister()
+        # Save PDF
+        doc.savePDF()
+        form = VehDeregisterForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+
+    context = {'form': form}
+    return render(request, "petitioner_app/vehderegister.html", context)
 
 
 def form3(request):
