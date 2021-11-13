@@ -15,7 +15,7 @@ class VehRegister(models.Model):
     dopuszczenie = [
         (EURO, _('Pojazd ma dopuszczenie indywidualne europejskie WE')),
         (JEDNOSTKOWE, _('Pojazd ma dopuszczenie jednostkowe')),
-        ]
+    ]
 
     rodzaj_pojazdu = models.CharField(
         max_length=21,
@@ -27,6 +27,19 @@ class VehRegister(models.Model):
     dlugosc = models.DecimalField(decimal_places=2, max_digits=10000, default=0, blank=True, null=True)
     szerokosc = models.DecimalField(decimal_places=2, max_digits=10000, default=0, blank=True, null=True)
     glebokosc_zanurzenia = models.DecimalField(decimal_places=2, max_digits=10000, default=0, blank=True, null=True)
-    wysokosc_nad_poziomem_wody = models.DecimalField(decimal_places=2, max_digits=10000, default=0, blank=True, null=True)
-    dopuszczenie_pojazdu = models.CharField(max_length=100, choices=dopuszczenie,  default=EURO, blank=True, null=True)
+    wysokosc_nad_poziomem_wody = models.DecimalField(decimal_places=2, max_digits=10000, default=0, blank=True,
+                                                     null=True)
+    dopuszczenie_pojazdu = models.CharField(max_length=100, choices=dopuszczenie, default=EURO, blank=True, null=True)
     dowod_potwierdzajacy_wlasnosc = models.FileField(blank=True, null=True)
+
+
+class Application(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    form = models.ForeignKey(VehRegister, on_delete=models.CASCADE)
+
+
+class Document(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    application = models.ForeignKey(Application, on_delete=models.CASCADE)
+    filename = models.CharField(max_length=60)
+    path = models.CharField(max_length=200)
