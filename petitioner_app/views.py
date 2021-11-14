@@ -1,10 +1,11 @@
+from mailmerge import MailMerge
 from django.shortcuts import render, redirect
 from .forms import VehRegisterForm, VehDeregisterForm
 from django.template import loader
 from django.http import HttpResponse
+import win32com.client
 
 # Create your views here.
-from .templates.converter.xmlToPdf import XMLtoPDF
 
 
 def landing(request):
@@ -16,17 +17,28 @@ def vehregister(request):
     form = VehRegisterForm(request.POST or None)
 
     if request.method == 'POST':
-        xml = "petitioner_app\\templates\\converter\\input.xml"
-        # Path to destination PDF file
-        pdf = "petitioner_app\\templates\\converter\\output.pdf"
-        doc = XMLtoPDF(xml, pdf)
-        # Convert to PDF format
-        doc.createPDF_register()
-        # Save PDF
-        doc.savePDF()
         form = VehRegisterForm(request.POST or None)
+        form_dict = form.data.dict()
         if form.is_valid():
+            # Docs
+            template = "petitioner_app\\templates\\converter\\formTemplate.docx"
+            output_document = "petitioner_app\\templates\\converter\\output.docx"
+            output_pdf = "petitioner_app\\templates\\converter\\output.pdf"
+            document = MailMerge(template)
+            document.merge_pages([form_dict])
+            document.write(output_document)
+            document.close()
             form.save()
+            
+            # PDF
+            xml = "petitioner_app\\templates\\converter\\input.xml"
+            # Path to destination PDF file
+            pdf = "petitioner_app\\templates\\converter\\output.pdf"
+            doc = XMLtoPDF(xml, pdf)
+            # Convert to PDF format
+            doc.createPDF_register()
+            # Save PDF
+            doc.savePDF()
 
     context = {'form': form}
     return render(request, "petitioner_app/vehregister.html", context)

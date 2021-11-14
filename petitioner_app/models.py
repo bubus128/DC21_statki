@@ -10,10 +10,10 @@ class VehRegister(models.Model):
         ANTIQUE = 'Zabytkowy',
 
     EURO = "The vehicle has EC individual homologation"
-    JEDNOSTKOWE = "The vehicle has a unit approval"
+    INDIVIDUAL = "The vehicle has a unit approval"
     dopuszczenie = [
         (EURO, _('The vehicle has EC individual homologation')),
-        (JEDNOSTKOWE, _('The vehicle has a unit approval')),
+        (INDIVIDUAL, _('The vehicle has a unit approval')),
         ]
 
     type_of_vehicle = models.CharField(
@@ -35,3 +35,15 @@ class VehDeregister(models.Model):
     vehicle_id = models.CharField(max_length=10, blank=True, null=True)
     reason = models.CharField(max_length=250, blank=True, null=True)
     proof_of_ownership = models.FileField(blank=True, null=True)
+
+
+class Application(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    form = models.ForeignKey(VehRegister, on_delete=models.CASCADE)
+
+
+class Document(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    application = models.ForeignKey(Application, on_delete=models.CASCADE)
+    filename = models.CharField(max_length=60)
+    path = models.CharField(max_length=200)
