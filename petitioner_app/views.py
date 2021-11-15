@@ -1,9 +1,11 @@
 from mailmerge import MailMerge
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from .forms import VehRegisterForm
 from django.template import loader
 from django.http import HttpResponse
-import win32com.client
+from petitioner_app.models import Application
+import subprocess
+
 
 # Create your views here.
 
@@ -18,16 +20,23 @@ def vehregister(request):
 
     if request.method == 'POST':
         form = VehRegisterForm(request.POST or None)
-        form_dict = form.data.dict()
         if form.is_valid():
+            form.save()
+            form_dict = form.data.dict()
             template = "petitioner_app\\templates\\converter\\formTemplate.docx"
-            output_document = "petitioner_app\\templates\\converter\\output.docx"
-            output_pdf = "petitioner_app\\templates\\converter\\output.pdf"
+            output_document = "output.docx"
+            libre_office_path = 'C:\\Program Files\\LibreOffice\\program\\soffice'
+            # Create docx file due to template
             document = MailMerge(template)
             document.merge_pages([form_dict])
             document.write(output_document)
             document.close()
-            form.save()
+            # Convert docx to pdf (using libreoffice)
+            args = [libre_office_path, '--headless', '--convert-to', 'pdf', output_document]
+            subprocess.run(args)
+            # Create an application
+            application = Application(petitioner=request.user, form=form.instance)
+            application.save()
 
     context = {'form': form}
     return render(request, "petitioner_app/vehregister.html", context)

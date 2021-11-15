@@ -1,9 +1,11 @@
 from django.db import models
+from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
 
 # Create your models here.
 class VehRegister(models.Model):
+    id = models.BigAutoField(primary_key=True)
     class rodzajPojazdu(models.TextChoices):
         NOWY = 'Nowy',
         UZYWANY = 'Uzywany',
@@ -36,6 +38,7 @@ class VehRegister(models.Model):
 class Application(models.Model):
     id = models.BigAutoField(primary_key=True)
     form = models.ForeignKey(VehRegister, on_delete=models.CASCADE)
+    petitioner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 
 class Document(models.Model):
