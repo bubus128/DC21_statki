@@ -8,4 +8,5 @@ urlpatterns = [
     path("form2/", views.form2, name="form2"),
     path("form3/", views.form3, name="form3"),
     path("myforms/", views.myforms, name="myforms"),
+    path("form/<int:form_id>", views.singleform, name="singleform")
 ]

@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 # Create your models here.
 class VehRegister(models.Model):
     id = models.BigAutoField(primary_key=True)
+
     class rodzajPojazdu(models.TextChoices):
         NOWY = 'Nowy',
         UZYWANY = 'Uzywany',

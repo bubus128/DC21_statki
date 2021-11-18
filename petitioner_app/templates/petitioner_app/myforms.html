@@ -7,22 +7,20 @@
           <th scope="col">Issue no.</th>
           <th scope="col">Type of issue</th>
           <th scope="col">State</th>
-          <th scope="col">Save to pdf</th>
+          <th scope="col">Details</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Vehicle registration</td>
-          <td>Done</td>
-          <td><button type="button" class="btn btn-info">Save</button></td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Vehicle registration</td>
-          <td>In progress</td>
-          <td><button type="button" class="btn btn-info">Save</button></td>
-        </tr>
+      {% if my_forms %}
+        {% for form in my_forms %}
+            <tr>
+              <th scope="row">{{form.id}}</th>
+              <td>Vehicle registration</td>
+              <td>Pending</td>
+              <td><a href="/petitioner/form/{{form.id}}">View</a></td>
+            </tr>
+        {% endfor %}
+      {% endif %}
       </tbody>
     </table>
 {% endblock %}
