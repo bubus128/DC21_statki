@@ -4,6 +4,8 @@ from .forms import VehRegisterForm, VehDeregisterForm, VehReregisterForm
 from django.template import loader
 from django.http import HttpResponse
 from petitioner_app.models import Application
+from django.contrib.auth.models import User
+import random
 import subprocess
 
 
@@ -34,7 +36,9 @@ def vehregister(request):
             args = [libre_office_path, '--headless', '--convert-to', 'pdf', output_document]
             subprocess.run(args)
             # Create an application
-            application = Application(petitioner=request.user, form=form.instance)
+            clerks = User.objects.filter(profile__role="clerk")
+            clerk = clerks[random.randint(0, len(clerks)-1)]
+            application = Application(petitioner=request.user, form=form.instance, clerk=clerk)
             application.save()
             form.save()
 

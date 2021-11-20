@@ -1,6 +1,6 @@
 from django.db import models
-from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -50,7 +50,8 @@ class VehReregister(models.Model):
 class Application(models.Model):
     id = models.BigAutoField(primary_key=True)
     form = models.ForeignKey(VehRegister, on_delete=models.CASCADE)
-    petitioner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    petitioner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="refers_to")
+    clerk = models.ForeignKey(User, on_delete=models.CASCADE, related_name="my_case")
 
 
 class Document(models.Model):

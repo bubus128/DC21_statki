@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'mainapp',
     'petitioner_app',
     'clerk_app',
-    'crispy_forms',
+    'crispy_forms'
+
 ]
 
 MIDDLEWARE = [
@@ -128,7 +129,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = "/clerk"
+LOGIN_REDIRECT_URL = '/user_role'
 LOGOUT_REDIRECT_URL = "/main"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
