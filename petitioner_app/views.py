@@ -1,10 +1,9 @@
 from mailmerge import MailMerge
 from django.shortcuts import render
 from .forms import VehRegisterForm, VehDeregisterForm, VehReregisterForm
-from .models import VehRegister, Application
+from .models import VehRegister, VehDeregister, VehReregister, Application
 from django.template import loader
 from django.http import HttpResponse
-from petitioner_app.models import Application
 from django.contrib.auth.models import User
 import random
 import subprocess
@@ -141,11 +140,31 @@ def myforms(request):
     return HttpResponse(template.render(context, request))
 
 
-def singleform(request, form_id):
-    form = VehRegister.objects.filter(id=form_id)
-    template = loader.get_template('petitioner_app/singleform.html')
+def singleform(request, form_type, form_id):
+    if form_type == "vehregister":
+        form = VehRegister.objects.filter(id=form_id)
+        template = loader.get_template('petitioner_app/singleform.html')
 
-    context = {
-        'form': form[0],
-    }
-    return HttpResponse(template.render(context, request))
+        context = {
+            'form_type': "vehregister",
+            'form': form[0],
+        }
+        return HttpResponse(template.render(context, request))
+    elif form_type == "vehderegister":
+        form = VehDeregister.objects.filter(id=form_id)
+        template = loader.get_template('petitioner_app/singleform.html')
+
+        context = {
+            'form_type': "vehderegister",
+            'form': form[0],
+        }
+        return HttpResponse(template.render(context, request))
+    elif form_type == "vehreregister":
+        form = VehReregister.objects.filter(id=form_id)
+        template = loader.get_template('petitioner_app/singleform.html')
+
+        context = {
+            'form_type': "vehreregister",
+            'form': form[0],
+        }
+        return HttpResponse(template.render(context, request))
