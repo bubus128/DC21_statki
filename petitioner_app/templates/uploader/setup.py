@@ -6,8 +6,4 @@ from pydrive2.auth import GoogleAuth
 
 gauth = GoogleAuth()
 
-gauth.GetFlow()
-gauth.flow.params.update({"access_type": "offline"})
-
 gauth.LocalWebserverAuth()
-gauth.SaveCredentialsFile("creds.json")

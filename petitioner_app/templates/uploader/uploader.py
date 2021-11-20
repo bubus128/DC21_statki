@@ -8,17 +8,11 @@ class Uploader:
         self._stubbed = False
         if exists("creds.json"):
             self._gauth = GoogleAuth()
-            self._gauth.GetFlow()
-            self._gauth.flow.params.update({"access_type": "offline"})
             self._gauth.LoadCredentialsFile("creds.json")
-            self._gauth.Refresh()
             self._gdrive = GoogleDrive()
         elif exists("petitioner_app/templates/uploader/creds.json"):
             self._gauth = GoogleAuth()
-            self._gauth.GetFlow()
-            self._gauth.flow.params.update({"access_type": "offline"})
             self._gauth.LoadCredentialsFile("petitioner_app/templates/uploader/creds.json")
-            self._gauth.Refresh()
             self._gdrive = GoogleDrive()
         else:
             print("Created a stubbed google drive uploader class. For GDrive support make sure to run the setup.py script.")
@@ -33,10 +27,10 @@ class Uploader:
             f = self._gdrive.CreateFile({"title": name})
             f.SetContentFile(filepath)
             f.Upload()
-        return (id, name)
+        return (f["id"], name)
 
     def download(self, id_drive, file_local):
-        # doesn't work yet
+        # should work now
         if not self._stubbed:
-            f = self._gdrive.CreateFile({"title": file_drive})
+            f = self._gdrive.CreateFile({"id": id_drive})
             f.GetContentFile(file_local)
