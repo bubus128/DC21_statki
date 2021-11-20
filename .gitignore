@@ -134,6 +134,9 @@ dmypy.json
 #vscode
 .vscode/
 
+#migrations
+*/migrations
+
 #output files
 output.docx
 output.pdf

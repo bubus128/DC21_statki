@@ -15,12 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from petitioner_app.views import vehregister
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+
+@login_required
+def user_role(request):
+    role = request.user.profile.role
+    return redirect("/"+role)
 
 urlpatterns = [
     path('main/', include('mainapp.urls')),
     path("petitioner/", include('petitioner_app.urls')),
     path("clerk/", include('clerk_app.urls')),
     path('admin/', admin.site.urls),
+    path('user_role/', user_role),
     path('', include("django.contrib.auth.urls")),
 ]
