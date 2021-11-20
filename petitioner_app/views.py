@@ -21,17 +21,6 @@ def vehregister(request):
     form = VehRegisterForm(request.POST or None)
 
     if request.method == 'POST':
-<<<<<<< HEAD
-=======
-        xml = "petitioner_app/templates/converter/input.xml"
-        # Path to destination PDF file
-        pdf = "petitioner_app/templates/converter/output.pdf"
-        doc = XMLtoPDF(xml, pdf)
-        # Convert to PDF format
-        doc.createPDF()
-        # Save PDF
-        doc.savePDF()
->>>>>>> ce1d6e1 (quickfix for filepaths to work under linux)
         form = VehRegisterForm(request.POST or None)
         if form.is_valid():
             form_dict = form.data.dict()
