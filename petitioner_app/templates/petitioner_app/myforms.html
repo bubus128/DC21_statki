@@ -11,11 +11,31 @@
         </tr>
       </thead>
       <tbody>
-      {% if my_forms %}
-        {% for form in my_forms %}
+      {% if vehregister_forms %}
+        {% for form in vehregister_forms %}
             <tr>
               <th scope="row">{{form.id}}</th>
               <td>Vehicle registration</td>
+              <td>Pending</td>
+              <td><a href="/petitioner/form/{{form.id}}">View</a></td>
+            </tr>
+        {% endfor %}
+      {% endif %}
+      {% if vehderegister_forms %}
+        {% for form in vehderegister_forms %}
+            <tr>
+              <th scope="row">{{form.id}}</th>
+              <td>Vehicle unregistration</td>
+              <td>Pending</td>
+              <td><a href="/petitioner/form/{{form.id}}">View</a></td>
+            </tr>
+        {% endfor %}
+      {% endif %}
+      {% if vehreregister_forms %}
+        {% for form in vehreregister_forms %}
+            <tr>
+              <th scope="row">{{form.id}}</th>
+              <td>Ownership change</td>
               <td>Pending</td>
               <td><a href="/petitioner/form/{{form.id}}">View</a></td>
             </tr>

@@ -29,6 +29,7 @@ def vehregister(request):
             output_document = "output1.docx"
             libre_office_path = 'C:\\Program Files\\LibreOffice\\program\\soffice'
             # Create docx file due to template
+            """
             document = MailMerge(template)
             document.merge_pages([form_dict])
             document.write(output_document)
@@ -36,10 +37,11 @@ def vehregister(request):
             # Convert docx to pdf (using libreoffice)
             args = [libre_office_path, '--headless', '--convert-to', 'pdf', output_document]
             subprocess.run(args)
+            """
             # Create an application
             clerks = User.objects.filter(profile__role="clerk")
             clerk = clerks[random.randint(0, len(clerks)-1)]
-            application = Application(petitioner=request.user, form=form.instance, clerk=clerk)
+            application = Application(petitioner=request.user, vehregister_form=form.instance, clerk=clerk)
             form.save()
             application.save()
 
@@ -60,6 +62,7 @@ def vehderegister(request):
             output_document = "output2.docx"
             libre_office_path = 'C:\\Program Files\\LibreOffice\\program\\soffice'
             # Create docx file due to template
+            """
             document = MailMerge(template)
             document.merge_pages([form_dict])
             document.write(output_document)
@@ -67,8 +70,11 @@ def vehderegister(request):
             # Convert docx to pdf (using libreoffice)
             args = [libre_office_path, '--headless', '--convert-to', 'pdf', output_document]
             subprocess.run(args)
+            """
             # Create an application
-            application = Application(petitioner=request.user, form=form.instance)
+            clerks = User.objects.filter(profile__role="clerk")
+            clerk = clerks[random.randint(0, len(clerks)-1)]
+            application = Application(petitioner=request.user, vehderegister_form=form.instance, clerk=clerk)
             form.save()
             application.save()
 
@@ -89,6 +95,7 @@ def vehreregister(request):
             output_document = "output3.docx"
             libre_office_path = 'C:\\Program Files\\LibreOffice\\program\\soffice'
             # Create docx file due to template
+            """
             document = MailMerge(template)
             document.merge_pages([form_dict])
             document.write(output_document)
@@ -96,8 +103,11 @@ def vehreregister(request):
             # Convert docx to pdf (using libreoffice)
             args = [libre_office_path, '--headless', '--convert-to', 'pdf', output_document]
             subprocess.run(args)
+            """
             # Create an application
-            application = Application(petitioner=request.user, form=form.instance)
+            clerks = User.objects.filter(profile__role="clerk")
+            clerk = clerks[random.randint(0, len(clerks)-1)]
+            application = Application(petitioner=request.user, vehreregister_form=form.instance, clerk=clerk)
             form.save()
             application.save()
 
@@ -109,15 +119,23 @@ def myforms(request):
     current_user_id = request.user.id
     my_applications = Application.objects.filter(petitioner=current_user_id)
     template = loader.get_template('petitioner_app/myforms.html')
-    my_forms = []
-    form_links = []
+    vehregister_forms = []
+    vehderegister_forms = []
+    vehreregister_forms = []
 
     for application in my_applications:
-        my_forms.append(application.form)
+
+        if application.vehregister_form is not None:
+            vehregister_forms.append(application.vehregister_form)
+        elif application.vehderegister_form is not None:
+            vehderegister_forms.append(application.vehderegister_form)
+        elif application.vehreregister_form is not None:
+            vehreregister_forms.append(application.vehreregister_form)
 
     context = {
-        'my_forms': my_forms,
-        'form_link': "/petitioner/viewform/"
+        'vehregister_forms': vehregister_forms,
+        'vehderegister_forms': vehderegister_forms,
+        'vehreregister_forms': vehreregister_forms,
     }
 
     return HttpResponse(template.render(context, request))
