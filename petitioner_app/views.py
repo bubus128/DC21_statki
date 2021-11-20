@@ -141,9 +141,11 @@ def myforms(request):
 
 
 def singleform(request, form_type, form_id):
+
+    template = loader.get_template('petitioner_app/singleform.html')
+
     if form_type == "vehregister":
         form = VehRegister.objects.filter(id=form_id)
-        template = loader.get_template('petitioner_app/singleform.html')
 
         context = {
             'form_type': "vehregister",
@@ -152,7 +154,6 @@ def singleform(request, form_type, form_id):
         return HttpResponse(template.render(context, request))
     elif form_type == "vehderegister":
         form = VehDeregister.objects.filter(id=form_id)
-        template = loader.get_template('petitioner_app/singleform.html')
 
         context = {
             'form_type': "vehderegister",
@@ -161,7 +162,6 @@ def singleform(request, form_type, form_id):
         return HttpResponse(template.render(context, request))
     elif form_type == "vehreregister":
         form = VehReregister.objects.filter(id=form_id)
-        template = loader.get_template('petitioner_app/singleform.html')
 
         context = {
             'form_type': "vehreregister",

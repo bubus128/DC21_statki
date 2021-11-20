@@ -34,3 +34,33 @@ def myissues(request):
     }
 
     return HttpResponse(template.render(context, request))
+
+
+def singleissue(request, form_type, form_id):
+
+    template = loader.get_template('clerk_app/singleissue.html')
+
+    if form_type == "vehregister":
+        form = VehRegister.objects.filter(id=form_id)
+
+        context = {
+            'form_type': "vehregister",
+            'form': form[0],
+        }
+        return HttpResponse(template.render(context, request))
+    elif form_type == "vehderegister":
+        form = VehDeregister.objects.filter(id=form_id)
+
+        context = {
+            'form_type': "vehderegister",
+            'form': form[0],
+        }
+        return HttpResponse(template.render(context, request))
+    elif form_type == "vehreregister":
+        form = VehReregister.objects.filter(id=form_id)
+
+        context = {
+            'form_type': "vehreregister",
+            'form': form[0],
+        }
+        return HttpResponse(template.render(context, request))
