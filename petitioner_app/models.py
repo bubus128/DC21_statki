@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -39,6 +40,7 @@ class Application(models.Model):
     id = models.BigAutoField(primary_key=True)
     form = models.ForeignKey(VehRegister, on_delete=models.CASCADE)
     petitioner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    #clerk = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Document(models.Model):
@@ -46,3 +48,8 @@ class Document(models.Model):
     application = models.ForeignKey(Application, on_delete=models.CASCADE)
     filename = models.CharField(max_length=60)
     path = models.CharField(max_length=200)
+
+
+#class Role(models.Model):
+ #   user = models.OneToOneField(User, on_delete=models.CASCADE)
+  #  role = models.CharField(max_length=60)

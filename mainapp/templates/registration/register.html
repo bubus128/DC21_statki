@@ -4,7 +4,8 @@
     {% load crispy_forms_tags %}
        <form method="post" class="from-group">
             {%csrf_token %}
-            {{form|crispy}}
+            {{user_form|crispy}}
+            {{profile_form|crispy}}
             <button type="submit" class="btn btn-success">Submit</button>
              <br><br><br><br><br>
         </form>
