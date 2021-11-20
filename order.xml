@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<invoice>
+	<numer_zgloszenia>0056</numer_zgloszenia>
+	<dane_zgloszajacego>
+		<imie>Maciek</imie>
+		<nazwisko>Wrobel</nazwisko>
+		<numer_dowodu>DAE2435</numer_dowodu>
+		<telefon>123-456-789</telefon>
+	</dane_zgloszajacego>
+	<rodzaj_pojazdu>Nowy</rodzaj_pojazdu>
+    <rok_produkcji>2003</rok_produkcji>
+	<waga>38</waga>
+	<dlugosc>516</dlugosc>
+	<szerokosc>230</szerokosc>
+	<glebokosc_zanurzenia>120</glebokosc_zanurzenia>
+	<wysokosc_nad_poziomem_wody>600</wysokosc_nad_poziomem_wody>
+	<zalaczniki>
+		<dopuszczenie_pojazdu>Tak</dopuszczenie_pojazdu>
+		<dowod_potwierdzajacy_wlasnosc>Nie</dowod_potwierdzajacy_wlasnosc>
+	</zalaczniki>
+</invoice>
