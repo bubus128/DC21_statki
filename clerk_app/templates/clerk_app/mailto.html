@@ -1,0 +1,10 @@
+{% extends "clerk_app/clerk_base.html" %}
+
+{% block content %}
+    {% load crispy_forms_tags %}
+    <form method="post" action="">
+        {% csrf_token %}
+        {{mail_form.as_p}}
+        <input type='submit' value='Send'/>
+    </form>
+{% endblock %}

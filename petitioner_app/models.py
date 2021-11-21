@@ -50,9 +50,12 @@ class VehReregister(models.Model):
 
 class Application(models.Model):
     id = models.BigAutoField(primary_key=True)
-    vehregister_form = models.ForeignKey(VehRegister, blank=True, null=True, on_delete=models.CASCADE)
-    vehderegister_form = models.ForeignKey(VehDeregister, blank=True, null=True, on_delete=models.CASCADE)
-    vehreregister_form = models.ForeignKey(VehReregister, blank=True, null=True, on_delete=models.CASCADE)
+    vehregister_form = models.ForeignKey(VehRegister, blank=True, null=True, on_delete=models.CASCADE,
+                                         related_name="application")
+    vehderegister_form = models.ForeignKey(VehDeregister, blank=True, null=True, on_delete=models.CASCADE,
+                                           related_name="application")
+    vehreregister_form = models.ForeignKey(VehReregister, blank=True, null=True, on_delete=models.CASCADE,
+                                           related_name="application")
     petitioner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="refers_to")
     clerk = models.ForeignKey(User, on_delete=models.CASCADE, related_name="my_case")
 

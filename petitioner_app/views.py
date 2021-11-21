@@ -9,9 +9,6 @@ import random
 import subprocess
 
 
-# Create your views here.
-
-
 def landing(request):
     template = loader.get_template('petitioner_app/landing_page.html')
     return HttpResponse(template.render({}, request))
