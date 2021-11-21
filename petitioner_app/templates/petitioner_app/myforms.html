@@ -7,22 +7,40 @@
           <th scope="col">Issue no.</th>
           <th scope="col">Type of issue</th>
           <th scope="col">State</th>
-          <th scope="col">Save to pdf</th>
+          <th scope="col">Details</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Vehicle registration</td>
-          <td>Done</td>
-          <td><button type="button" class="btn btn-info">Save</button></td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Vehicle registration</td>
-          <td>In progress</td>
-          <td><button type="button" class="btn btn-info">Save</button></td>
-        </tr>
+      {% if vehregister_forms %}
+        {% for form in vehregister_forms %}
+            <tr>
+              <th scope="row">{{form.id}}</th>
+              <td>Vehicle registration</td>
+              <td>Pending</td>
+              <td><a href="/petitioner/form/vehregister/{{form.id}}">View</a></td>
+            </tr>
+        {% endfor %}
+      {% endif %}
+      {% if vehderegister_forms %}
+        {% for form in vehderegister_forms %}
+            <tr>
+              <th scope="row">{{form.id}}</th>
+              <td>Vehicle unregistration</td>
+              <td>Pending</td>
+              <td><a href="/petitioner/form/vehderegister/{{form.id}}">View</a></td>
+            </tr>
+        {% endfor %}
+      {% endif %}
+      {% if vehreregister_forms %}
+        {% for form in vehreregister_forms %}
+            <tr>
+              <th scope="row">{{form.id}}</th>
+              <td>Ownership change</td>
+              <td>Pending</td>
+              <td><a href="/petitioner/form/vehreregister/{{form.id}}">View</a></td>
+            </tr>
+        {% endfor %}
+      {% endif %}
       </tbody>
     </table>
 {% endblock %}

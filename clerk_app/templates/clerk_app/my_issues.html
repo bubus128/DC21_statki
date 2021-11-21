@@ -5,38 +5,46 @@
       <thead>
         <tr>
           <th scope="col">Issue no.</th>
-          <th scope="col">Petitioner</th>
+          <th scope="col">Petitioner username</th>
           <th scope="col">Type of issue</th>
-          <th scope="col">Save to file</th>
-          <th scope="col">Send e-mail to petitioner</th>
-          <th scope="col">Hint?</th>
+          <th scope="col">State</th>
+          <th scope="col">Details</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark Otto</td>
-          <td>Vehicle registration</td>
-          <td><button type="button" class="btn btn-info">Save</button></td>
-          <td><button type="button" class="btn btn-info">Write e-mail</button></td>
-          <td>??</td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>Ken Bennet</td>
-          <td>Vehicle registration</td>
-          <td><button type="button" class="btn btn-info">Save</button></td>
-          <td><button type="button" class="btn btn-info">Write e-mail</button></td>
-          <td>??</td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>Marie Jackson</td>
-          <td>Vehicle registration</td>
-          <td><button type="button" class="btn btn-info">Save</button></td>
-          <td><button type="button" class="btn btn-info">Write e-mail</button></td>
-          <td>??</td>
-        </tr>
+      {% if vehregister_applications %}
+        {% for application in vehregister_applications %}
+            <tr>
+              <th scope="row">{{application.vehregister_form.id}}</th>
+              <td>{{application.petitioner.username}}</td>
+              <td>Vehicle registration</td>
+              <td>Pending</td>
+              <td><a href="/clerk/form/vehregister/{{application.vehregister_form.id}}">View</a></td>
+            </tr>
+        {% endfor %}
+      {% endif %}
+      {% if vehderegister_applications %}
+        {% for application in vehderegister_applications %}
+            <tr>
+              <th scope="row">{{application.vehderegister_form.id}}</th>
+              <td>{{application.petitioner}}</td>
+              <td>Vehicle unregistration</td>
+              <td>Pending</td>
+              <td><a href="/clerk/form/vehderegister/{{application.vehderegister_form.id}}">View</a></td>
+            </tr>
+        {% endfor %}
+      {% endif %}
+      {% if vehreregister_applications %}
+        {% for application in vehreregister_applications %}
+            <tr>
+              <th scope="row">{{application.vehreregister_form.id}}</th>
+              <td>{{application.petitioner}}</td>
+              <td>Ownership change</td>
+              <td>Pending</td>
+              <td><a href="/clerk/form/vehreregister/{{application.vehreregister_form.id}}">View</a></td>
+            </tr>
+        {% endfor %}
+      {% endif %}
       </tbody>
     </table>
 {% endblock %}

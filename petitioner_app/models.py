@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class VehRegister(models.Model):
     id = models.BigAutoField(primary_key=True)
+
     class rodzajPojazdu(models.TextChoices):
         NOWY = 'Nowy',
         UZYWANY = 'Uzywany',
@@ -49,7 +50,9 @@ class VehReregister(models.Model):
 
 class Application(models.Model):
     id = models.BigAutoField(primary_key=True)
-    form = models.ForeignKey(VehRegister, on_delete=models.CASCADE)
+    vehregister_form = models.ForeignKey(VehRegister, blank=True, null=True, on_delete=models.CASCADE)
+    vehderegister_form = models.ForeignKey(VehDeregister, blank=True, null=True, on_delete=models.CASCADE)
+    vehreregister_form = models.ForeignKey(VehReregister, blank=True, null=True, on_delete=models.CASCADE)
     petitioner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="refers_to")
     clerk = models.ForeignKey(User, on_delete=models.CASCADE, related_name="my_case")
 

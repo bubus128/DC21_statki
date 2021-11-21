@@ -1,0 +1,42 @@
+{% extends "petitioner_app/petitioner_base.html" %}
+
+{% block content %}
+
+
+{% if form %}
+    {% if form_type == "vehregister" %}
+        <h2>Form details:</h2><br><br><br>
+        <p> Form id: {{form.id}}</p>
+        <p> Vehicle type: {{form.rodzaj_pojazdu}}</p>
+        <p> Production date: {{form.rok_produkcji}}</p>
+        <p> Weight: {{form.waga}}</p>
+        <p> Length: {{form.dlugosc}}</p>
+        <p> Width: {{form.szerokosc}}</p>
+        <p> Submersion depth: {{form.glebokosc_zanurzenia}}</p>
+        <p> Height over sea level: {{form.wysokosc_nad_poziomem_wody}}</p>
+        <p> Vehicle approval: {{form.dopuszczenie_pojazdu}}</p>
+
+        <button type="button" class="btn btn-info btn-lg">Download form</button>
+    {% elif form_type == "vehderegister" %}
+        <h2>Form details:</h2><br><br><br>
+        <p> Form id: {{form.id}}</p>
+        <p> Vehicle id: {{form.vehicle_id}}</p>
+        <p> Reason for unregistering: {{form.reason}}</p>
+
+        <button type="button" class="btn btn-info btn-lg">Download form</button>
+    {% elif form_type == "vehreregister" %}
+        <h2>Form details:</h2><br><br><br>
+        <p> Form id: {{form.id}}</p>
+        <p> Current owner id: {{form.current_owner_id}}</p>
+        <p> New owner id: {{form.new_owner_id}}</p>
+
+        <button type="button" class="btn btn-info btn-lg">Download form</button>
+    {% else %}
+        <p>Wrong formtype parameter</p>
+    {% endif %}
+{% else %}
+    <p>Failed to load form</p>
+{% endif %}
+
+
+{% endblock %}
