@@ -7,6 +7,9 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 import random
 import subprocess
+import petitioner_app.templates.uploader.uploader as uploader
+from os.path import splitext
+from sys import platform
 
 
 # Create your views here.
@@ -22,26 +25,41 @@ def vehregister(request):
 
     if request.method == 'POST':
         form = VehRegisterForm(request.POST or None)
+        print(form)
         if form.is_valid():
             form_dict = form.data.dict()
-            template = "petitioner_app\\templates\\converter\\form2Template.docx"
+            print(form_dict)
+            template = "petitioner_app\\templates\\converter\\formTemplate.docx"
+            if platform == "linux":
+                template = "petitioner_app/templates/converter/formTemplate.docx"
             output_document = "output1.docx"
             libre_office_path = 'C:\\Program Files\\LibreOffice\\program\\soffice'
+            if platform == "linux":
+                libre_office_path = 'libreoffice'
+
             # Create docx file due to template
-            """
             document = MailMerge(template)
             document.merge_pages([form_dict])
             document.write(output_document)
             document.close()
+            u = uploader.Uploader()
+            doc_id = u.upload(output_document)
+
             # Convert docx to pdf (using libreoffice)
             args = [libre_office_path, '--headless', '--convert-to', 'pdf', output_document]
             subprocess.run(args)
-            """
+            pdf_id = u.upload(splitext(output_document)[0]+".pdf")
+
             # Create an application
             clerks = User.objects.filter(profile__role="clerk")
             clerk = clerks[random.randint(0, len(clerks)-1)]
             application = Application(petitioner=request.user, vehregister_form=form.instance, clerk=clerk)
-            form.save()
+            form_object = form.save()
+
+            # store the links
+            form_object.doc_link = u.get_link(doc_id)
+            form_object.pdf_link = u.get_link(pdf_id)
+            form_object.save()
             application.save()
 
     context = {'form': form}
@@ -58,23 +76,36 @@ def vehderegister(request):
             form_dict['rodzaj_pojazdu'] = form_dict.pop('vehicle_id')
             form_dict['rok_produkcji'] = form_dict.pop('reason')
             template = "petitioner_app\\templates\\converter\\form2Template.docx"
+            if platform == "linux":
+                template = "petitioner_app/templates/converter/form2Template.docx"
             output_document = "output2.docx"
             libre_office_path = 'C:\\Program Files\\LibreOffice\\program\\soffice'
+            if platform == "linux":
+                libre_office_path = 'libreoffice'
+
             # Create docx file due to template
-            """
             document = MailMerge(template)
             document.merge_pages([form_dict])
             document.write(output_document)
             document.close()
+            u = uploader.Uploader()
+            doc_id = u.upload(output_document)
+
             # Convert docx to pdf (using libreoffice)
             args = [libre_office_path, '--headless', '--convert-to', 'pdf', output_document]
             subprocess.run(args)
-            """
+            pdf_id = u.upload(splitext(output_document)[0]+".pdf")
+
             # Create an application
             clerks = User.objects.filter(profile__role="clerk")
             clerk = clerks[random.randint(0, len(clerks)-1)]
             application = Application(petitioner=request.user, vehderegister_form=form.instance, clerk=clerk)
-            form.save()
+            form_object = form.save()
+
+            # store the links
+            form_object.doc_link = u.get_link(doc_id)
+            form_object.pdf_link = u.get_link(pdf_id)
+            form_object.save()
             application.save()
 
     context = {'form': form}
@@ -91,23 +122,36 @@ def vehreregister(request):
             form_dict['rodzaj_pojazdu'] = form_dict.pop('current_owner_id')
             form_dict['rok_produkcji'] = form_dict.pop('new_owner_id')
             template = "petitioner_app\\templates\\converter\\form3Template.docx"
+            if platform == "linux":
+                template = "petitioner_app/templates/converter/form3Template.docx"
             output_document = "output3.docx"
             libre_office_path = 'C:\\Program Files\\LibreOffice\\program\\soffice'
+            if platform == "linux":
+                libre_office_path = 'libreoffice'
+
             # Create docx file due to template
-            """
             document = MailMerge(template)
             document.merge_pages([form_dict])
             document.write(output_document)
             document.close()
+            u = uploader.Uploader()
+            doc_id = u.upload(output_document)
+
             # Convert docx to pdf (using libreoffice)
             args = [libre_office_path, '--headless', '--convert-to', 'pdf', output_document]
             subprocess.run(args)
-            """
+            pdf_id = u.upload(splitext(output_document)[0]+".pdf")
+
             # Create an application
             clerks = User.objects.filter(profile__role="clerk")
             clerk = clerks[random.randint(0, len(clerks)-1)]
             application = Application(petitioner=request.user, vehreregister_form=form.instance, clerk=clerk)
-            form.save()
+            form_object = form.save()
+
+            # store the links
+            form_object.doc_link = u.get_link(doc_id)
+            form_object.pdf_link = u.get_link(pdf_id)
+            form_object.save()
             application.save()
 
     context = {'form': form}

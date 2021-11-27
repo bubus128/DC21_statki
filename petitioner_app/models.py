@@ -33,19 +33,25 @@ class VehRegister(models.Model):
     wysokosc_nad_poziomem_wody = models.DecimalField(decimal_places=2, max_digits=10000, default=0, blank=True,
                                                      null=True)
     dopuszczenie_pojazdu = models.CharField(max_length=100, choices=dopuszczenie, default=EURO, blank=True, null=True)
-    dowod_potwierdzajacy_wlasnosc = models.FileField(blank=True, null=True)
+    dowod_potwierdzajacy_wlasnosc = models.CharField(max_length=100, blank=True, null=True)
+    pdf_link = models.CharField(max_length=200, blank=True, null=True)
+    doc_link = models.CharField(max_length=200, blank=True, null=True)
 
 
 class VehDeregister(models.Model):
     vehicle_id = models.CharField(max_length=10, blank=True, null=True)
     reason = models.CharField(max_length=250, blank=True, null=True)
-    proof_of_ownership = models.FileField(blank=True, null=True)
+    proof_of_ownership = models.CharField(max_length=100, blank=True, null=True)
+    pdf_link = models.CharField(max_length=200, blank=True, null=True)
+    doc_link = models.CharField(max_length=200, blank=True, null=True)
 
 
 class VehReregister(models.Model):
     current_owner_id = models.CharField(max_length=10, blank=True, null=True)
     new_owner_id = models.CharField(max_length=10, blank=True, null=True)
-    proof_of_ownership = models.FileField(blank=True, null=True)
+    proof_of_ownership = models.CharField(max_length=100, blank=True, null=True)
+    pdf_link = models.CharField(max_length=200, blank=True, null=True)
+    doc_link = models.CharField(max_length=200, blank=True, null=True)
 
 
 class Application(models.Model):

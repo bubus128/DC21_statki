@@ -138,5 +138,5 @@ dmypy.json
 */migrations
 
 #output files
-output.docx
-output.pdf
+*.docx
+*.pdf

@@ -21,16 +21,28 @@ class Uploader:
         return str(uuid.uuid4())+extension
 
     def upload(self, filepath):
-        # returns a tuple of (id, filename) of the file on the gdrive itself
+        # returns the id of the file on the gdrive itself
         name = self._generate_name(splitext(filepath)[1])
         if not self._stubbed:
             f = self._gdrive.CreateFile({"title": name})
             f.SetContentFile(filepath)
             f.Upload()
-        return (f["id"], name)
+            # screw security, I just want to get it over with
+            permission = f.InsertPermission({
+                        'type': 'anyone',
+                        'value': 'anyone',
+                        'role': 'reader'})
+            return f["id"]
+        return None
 
     def download(self, id_drive, file_local):
-        # should work now
         if not self._stubbed:
             f = self._gdrive.CreateFile({"id": id_drive})
             f.GetContentFile(file_local)
+
+    def get_link(self, id_drive):
+        if not self._stubbed:
+            f = self._gdrive.CreateFile({"id": id_drive})
+            f.FetchMetadata(fetch_all=True)
+            return f['alternateLink']
+        return None
