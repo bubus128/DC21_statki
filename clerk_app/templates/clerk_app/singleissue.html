@@ -17,6 +17,7 @@
         <p> Vehicle approval: {{form.dopuszczenie_pojazdu}}</p>
 
         <a href="{{form.doc_link}}" type="button" class="btn btn-info btn-lg">Download form</a>
+        <td><a href="/clerk/mailto/{{form_type}}/{{form.id}}">Write an e-mail</a></td>
     {% elif form_type == "vehderegister" %}
         <h2>Form details:</h2><br><br><br>
         <p> Form id: {{form.id}}</p>

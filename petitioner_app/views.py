@@ -12,9 +12,6 @@ from os.path import splitext
 from sys import platform
 
 
-# Create your views here.
-
-
 def landing(request):
     template = loader.get_template('petitioner_app/landing_page.html')
     return HttpResponse(template.render({}, request))
